@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">hackathon_midx</string>
+    <string name="search">Search</string>
+    <string name="click_back_again_to_exit">Please click back again to exit.</string>
+    <string name="recipes">Recipes</string>
+</resources>
