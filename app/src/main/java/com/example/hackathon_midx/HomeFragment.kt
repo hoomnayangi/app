@@ -48,7 +48,7 @@ class HomeFragment : BaseFragment() {
 
     override fun getLayoutRes(): Int = R.layout.fragment_home
 
-    override fun addControls() {=
+    override fun addControls() {
         txt_action_bar_title.text = getString(R.string.search)
         apiService = APIUtils().getServer()
         callAPIStock("") // Call Default Stock List
@@ -56,7 +56,11 @@ class HomeFragment : BaseFragment() {
     }
 
     private fun callAPIRecipe() {
-        apiService?.getRecipeList(TextUtils.join(",", ingredients))
+        var request = TextUtils.join(",", ingredients)
+        if (request.isNullOrEmpty()) {
+            request = "1"
+        }
+        apiService?.getRecipeList(request)
             ?.enqueue(object : Callback<RecipeResponse> {
                 override fun onFailure(call: Call<RecipeResponse>, t: Throwable) {
                     Timber.d(t)
@@ -93,10 +97,10 @@ class HomeFragment : BaseFragment() {
                 response.body()?.listStocks?.let { stockLists ->
                     rvSkeletonRcvStock?.hide()
                     if (stockLists.isNullOrEmpty()) {
-                        vl_stock.displayedChild = 1
+                        vl_stock?.displayedChild = 1
                         return
                     }
-                    vl_stock.displayedChild = 0
+                    vl_stock?.displayedChild = 0
 
                     ingredients.forEach { ingredientsValue ->
                         stockLists.forEachIndexed { stockListsIndex, stockItemModel ->
@@ -156,9 +160,8 @@ class HomeFragment : BaseFragment() {
                         ingredients.remove("${data.id}")
                     }
 
+                    mStockAdapter?.notifyItemChanged(position)
                     callAPIRecipe()
-                    mStockAdapter?.notifyDataSetChanged()
-
                 }
             })
 

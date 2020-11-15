@@ -31,7 +31,7 @@ class MainActivity : BaseActivity() {
         main_bottom_navigation.isBehaviorTranslationEnabled = false
 
         val homeTab =
-            AHBottomNavigationItem(getString(R.string.home), R.drawable.ic_baseline_home_24, R.color.dandelion)
+            AHBottomNavigationItem(getString(R.string.home), R.drawable.home, R.color.dandelion)
         val recipeTab = AHBottomNavigationItem(
             getString(R.string.recipes),
             R.drawable.ic_chef_hat,

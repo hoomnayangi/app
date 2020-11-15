@@ -35,6 +35,8 @@ class StockViewHolder(parent: ViewGroup) :
 
             if (item.isSelected) {
                 rl_checked.visibility = View.VISIBLE
+            } else {
+                rl_checked.visibility = View.GONE
             }
         }
     }
