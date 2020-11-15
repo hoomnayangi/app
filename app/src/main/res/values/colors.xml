@@ -19,4 +19,6 @@
     <color name="green">#CC41B450</color>
     <color name="gray_50">#FAFAFA</color>
     <color name="gray_300">#E0E0E0</color>
+    <color name="transparent_black_hex_11">#11000000</color>
+    <color name="line_sep">#E0DEE0</color>
 </resources>

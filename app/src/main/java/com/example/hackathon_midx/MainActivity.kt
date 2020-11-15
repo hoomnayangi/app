@@ -15,7 +15,7 @@ class MainActivity : BaseActivity() {
 
     override fun getLayoutRes(): Int = R.layout.activity_main
     override fun addControls() {
-        txt_action_bar_title.text = getString(R.string.search)
+
 
         val homeFragment = HomeFragment()
         openFragment(
@@ -31,22 +31,16 @@ class MainActivity : BaseActivity() {
         main_bottom_navigation.isBehaviorTranslationEnabled = false
 
         val homeTab =
-            AHBottomNavigationItem("Home", R.drawable.ic_baseline_home_24, R.color.dandelion)
+            AHBottomNavigationItem(getString(R.string.home), R.drawable.ic_baseline_home_24, R.color.dandelion)
         val recipeTab = AHBottomNavigationItem(
             getString(R.string.recipes),
             R.drawable.ic_chef_hat,
-            R.color.dandelion
-        )
-        val newsTab = AHBottomNavigationItem(
-            "Account",
-            android.R.drawable.ic_menu_info_details,
             R.color.dandelion
         )
 
         main_bottom_navigation.apply {
             addItem(homeTab)
             addItem(recipeTab)
-            addItem(newsTab)
             defaultBackgroundColor = getColorMidX(this@MainActivity, R.color.white)
             inactiveColor = getColorMidX(this@MainActivity, R.color.silver_chalice)
             accentColor = getColorMidX(this@MainActivity, R.color.black)
@@ -77,12 +71,6 @@ class MainActivity : BaseActivity() {
                             recipeFragment.getName() ?: "RecipeFragment"
                         )
                     }
-                    2 -> {
-
-                    }
-                    3 -> {
-
-                    }
 
                 }
             }
@@ -102,13 +90,10 @@ class MainActivity : BaseActivity() {
         doubleBackToExitPressedOnce = true
         showSnackBar(resources.getString(R.string.click_back_again_to_exit))
 
-        var looper = Looper.myLooper()
-        if (looper == null) {
-            looper = Looper.getMainLooper()
+        initLooper()?.let {
+            Handler(it).postDelayed({ doubleBackToExitPressedOnce = false }, 2000L)
         }
-        if (looper != null) {
-            Handler(looper).postDelayed({ doubleBackToExitPressedOnce = false }, 2000L)
-        }
+
     }
 
 }

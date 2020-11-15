@@ -3,6 +3,7 @@ package com.example.hackathon_midx.stock_adapter
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.example.hackathon_midx.R
 import com.example.hackathon_midx.base_adapter.BaseItemAction
 import com.example.hackathon_midx.base_adapter.BaseViewHolder
@@ -27,7 +28,9 @@ class StockViewHolder(parent: ViewGroup) :
     override fun bindData(item: StockItemModel) {
         super.bindData(item)
         with(itemView) {
-            Glide.with(context).load(item.iconUrl ?: "").into(img_stock)
+            Glide.with(context).load(item.iconUrl ?: "").apply(RequestOptions().apply {
+                placeholder(R.drawable.ic_banana)
+            }).into(img_stock)
             txt_stock_name.text = item.name ?: ""
 
             if (item.isSelected) {

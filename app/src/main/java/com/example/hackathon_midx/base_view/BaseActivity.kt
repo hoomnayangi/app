@@ -1,9 +1,13 @@
 package com.example.hackathon_midx.base_view
 
+import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
+import android.os.Looper
 import android.view.Gravity
 import android.view.View
 import android.widget.FrameLayout
@@ -13,7 +17,6 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.hackathon_midx.R
 import com.google.android.material.snackbar.Snackbar
-import io.github.inflationx.viewpump.ViewPumpContextWrapper
 
 
 abstract class BaseActivity : AppCompatActivity(),
@@ -25,6 +28,7 @@ abstract class BaseActivity : AppCompatActivity(),
     }
 
     var mSnackBar: Snackbar? = null
+    private var mAlertDialog: AlertDialog? = null
 
     protected abstract fun getLayoutRes(): Int
 
@@ -47,19 +51,23 @@ abstract class BaseActivity : AppCompatActivity(),
         val bgColorRes: Int?
         when (messageCode) {
             SNACKBAR_MSG_CODE_SUCCESS -> {
-                textColorRes = getColorMidX(this,
+                textColorRes = getColorMidX(
+                    this,
                     R.color.white
                 )
-                bgColorRes = getColorMidX(this,
+                bgColorRes = getColorMidX(
+                    this,
                     R.color.toast_green
                 )
             }
 
             else -> {
-                textColorRes = getColorMidX(this,
+                textColorRes = getColorMidX(
+                    this,
                     R.color.oxford_blue
                 )
-                bgColorRes = getColorMidX(this,
+                bgColorRes = getColorMidX(
+                    this,
                     R.color.toast_yellow
                 )
             }
@@ -94,8 +102,47 @@ abstract class BaseActivity : AppCompatActivity(),
     fun openFragment(container: Int, fragment: Fragment, name: String) {
         supportFragmentManager
             .beginTransaction()
+            .setCustomAnimations(R.anim.screen_enter, R.anim.screen_exit)
             .replace(container, fragment)
             .addToBackStack(name)
             .commitAllowingStateLoss()
+    }
+
+    fun initLooper(): Looper? {
+        var looper = Looper.myLooper()
+        if (looper == null) {
+            looper = Looper.getMainLooper()
+        }
+        return looper
+    }
+
+    private fun showLoadingDialog(activity: Activity): AlertDialog? {
+        val builder = AlertDialog.Builder(activity)
+        val view: View = layoutInflater.inflate(R.layout.progress_dialog, null)
+        //ImageView imageLoading = view.findViewById(R.id.loader_iv);
+        //Glide.with(this).load(R.drawable.hako_loader).into(imageLoading);
+        builder.setCancelable(false)
+        builder.setView(view)
+        val alertDialog = builder.create()
+        alertDialog.show()
+        if (alertDialog.window != null) {
+            alertDialog.window!!
+                .setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        }
+        return alertDialog
+    }
+
+    open fun showLoadings(activity: Activity?) {
+        if (activity == null) {
+            return
+        }
+        hideLoadings()
+        mAlertDialog = showLoadingDialog(activity)
+    }
+
+    open fun hideLoadings() {
+        if (mAlertDialog != null && mAlertDialog?.isShowing == true) {
+            mAlertDialog?.dismiss()
+        }
     }
 }

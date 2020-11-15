@@ -35,11 +35,11 @@
                 app:tabIndicator="@drawable/tab_indicator"
                 app:tabIndicatorColor="@color/black"
                 app:tabIndicatorGravity="bottom"
-                app:tabIndicatorHeight="10dp"
+                app:tabIndicatorHeight="8dp"
                 app:tabMode="fixed"
                 app:tabRippleColor="@android:color/transparent"
+                app:tabTextAppearance="@style/TextAppearanceNoneAllCaps"
                 app:tabTextColor="@color/black" />
-
 
             <androidx.viewpager.widget.ViewPager
                 android:id="@+id/viewPager_recipe"

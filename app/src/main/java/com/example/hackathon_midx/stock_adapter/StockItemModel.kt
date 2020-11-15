@@ -11,7 +11,7 @@ data class StockItemModel(
     val id: String? = null,
     @SerializedName("name")
     val name: String? = null,
-    @SerializedName("icon_url")
+    @SerializedName("picture")
     val iconUrl: String? = null,
     @Transient
     var isSelected: Boolean = false

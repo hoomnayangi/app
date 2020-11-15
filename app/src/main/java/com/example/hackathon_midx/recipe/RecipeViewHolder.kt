@@ -27,10 +27,10 @@ class RecipeViewHolder(parent: ViewGroup) :
     override fun bindData(item: RecipeItemModel) {
         super.bindData(item)
         with(itemView) {
-            Glide.with(context).load(item.mealImage ?: "")
+            Glide.with(context).load(item.picture ?: "")
                 .into(img_recipe)
-            txt_chef_name.text = item.chefName ?: ""
-            txt_recipe_star.text = item.recipeStar ?: ""
+            txt_chef_name.text = item.chefName ?: "VTN"
+            txt_recipe_star.text = item.recipeStar ?: "4.3"
             txt_recipe_name.text = item.mealName ?: ""
         }
     }

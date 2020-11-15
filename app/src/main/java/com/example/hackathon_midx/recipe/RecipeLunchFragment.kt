@@ -14,7 +14,6 @@ import com.example.hackathon_midx.api_config.APIService
 import com.example.hackathon_midx.api_config.APIUtils
 import com.example.hackathon_midx.base_adapter.BaseItemAction
 import com.example.hackathon_midx.base_adapter.OnItemActionListener
-import com.example.hackathon_midx.base_view.BaseActivity
 import com.example.hackathon_midx.base_view.BaseFragment
 import com.example.hackathon_midx.stock_adapter.StockItemModel
 import com.gun0912.tedpermission.PermissionListener
@@ -26,7 +25,7 @@ import retrofit2.Response
 import timber.log.Timber
 
 
-class RecipeChildFragment : BaseFragment(), BaseFragmentInteraction {
+class RecipeLunchFragment : BaseFragment(), BaseFragmentInteraction {
 
     private var apiService: APIService? = null
     private var recipeAdapter: RecipeAdapter? = null
@@ -96,23 +95,10 @@ class RecipeChildFragment : BaseFragment(), BaseFragmentInteraction {
     }
 
     private fun callAPIRecipeHighlight() {
-        activity?.let {
-            (it as? MainActivity)?.showLoadings(it)
-        }
-
         apiService?.getRecipeHighlightList(lat.toString(), long.toString())
             ?.enqueue(object : Callback<RecipeResponse> {
                 override fun onFailure(call: Call<RecipeResponse>, t: Throwable) {
-                    activity?.let {
-                        (it as? MainActivity)?.apply {
-                            hideLoadings()
-                            showSnackBar(
-                                getString(R.string.error),
-                                BaseActivity.SNACKBAR_MSG_CODE_ERROR
-                            )
-                        }
-                    }
-
+                    Timber.d(t)
                 }
 
                 override fun onResponse(
@@ -121,11 +107,8 @@ class RecipeChildFragment : BaseFragment(), BaseFragmentInteraction {
                 ) {
                     response.body()?.listRecipes?.let {
 //                        rvSkeletonRcvQuick?.hide()
-                        activity?.let {
-                            (it as? MainActivity)?.hideLoadings()
-                        }
                         recipeAdapter?.updateItems(it.filter { data ->
-                            data.category == "1"
+                            data.category == "2"
                         })
                     }
 

@@ -8,13 +8,18 @@
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="16dp">
+
+            <include
+                android:id="@+id/action_bar"
+                layout="@layout/action_bar_mid_x" />
 
             <androidx.appcompat.widget.SearchView
                 android:id="@+id/search_view_home"
@@ -29,16 +34,38 @@
 
             </androidx.appcompat.widget.SearchView>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_list_stock"
+            <ViewFlipper
+                android:id="@+id/vl_stock"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="25dp"
-                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="3"
-                tools:listitem="@layout/item_stock" />
+                android:layout_height="wrap_content">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_list_stock"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="25dp"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    app:spanCount="3"
+                    tools:listitem="@layout/item_stock" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/empty_view" />
+                </RelativeLayout>
+
+
+            </ViewFlipper>
+
 
             <RelativeLayout
+                android:id="@+id/ll_next"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp">
@@ -46,7 +73,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Quick and Easy"
+                    android:text="@string/quick_and_easy"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -59,7 +86,6 @@
                     app:tint="@color/black" />
 
             </RelativeLayout>
-
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_list_quick_meal"

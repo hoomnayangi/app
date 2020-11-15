@@ -1,6 +1,15 @@
 <resources>
     <string name="app_name">hackathon_midx</string>
-    <string name="search">Search</string>
-    <string name="click_back_again_to_exit">Please click back again to exit.</string>
-    <string name="recipes">Recipes</string>
+    <string name="search">Tìm kiếm </string>
+    <string name="click_back_again_to_exit">Hãy bấm 1 lần nữa để thoát ứng dụng</string>
+    <string name="recipes">Món ăn</string>
+    <string name="home">Trang Chủ</string>
+    <string name="quick_and_easy">Món ăn</string>
+    <string name="nguyen_lieu">Nguyên Liệu</string>
+    <string name="how_to_do">Hướng dẫn thực hiện</string>
+    <string name="breakfast">Món ăn sáng</string>
+    <string name="lunch">Món ăn trưa</string>
+    <string name="dinner">Món ăn tối</string>
+    <string name="popular">Phổ biến</string>
+    <string name="error">Đã xảy ra lỗi</string>
 </resources>
